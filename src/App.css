@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-image: url("https://images.all-free-download.com/images/graphiclarge/weather_background_cute_stylized_icons_decor_6835599.jpg");
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,7 @@
   to {
     transform: rotate(360deg);
   }
+}
+.container {
+  padding-top: 150px;
 }
