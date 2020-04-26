@@ -13,10 +13,10 @@ class App extends Component {
     const zip = document.getElementById("zip").value; //gets the value of the zip input from the input field
     const zone = tz.lookup(zip); //uses "zipcode-to-timezone" to find hte timezone of the zip that has been fetched
     console.log(zone);
-    const time = moment().tz(zone);
+    const time = moment().tz(zone).format("LT z");
     console.log(time);
     this.setState({
-      time: moment._d,
+      time: time,
     });
   };
 
@@ -38,11 +38,12 @@ class App extends Component {
         this.setState({
           city: data.name,
           timezone: data.timezone,
-          theweather: data.weather[0].main,
-          temp: data.main.temp + "°F",
+          theweather: data.weather[0].description,
+          temp: "Current: " + Math.round(data.main.temp) + "°F",
           wind: data.wind.speed,
-          min: data.main.temp_min,
-          max: data.main.temp_max,
+          min: Math.round(data.main.temp_min) + "°F",
+          max: Math.round(data.main.temp_max) + "°F",
+          feelsLike: "Feels Like: " + Math.round(data.main.feels_like) + "°F",
         });
         this.getTZ(); // calls the tz function so that it both will run when button is clicked
       });
@@ -63,11 +64,31 @@ class App extends Component {
                     {/* on click of the button get "this function's response"*/}
                     Get Weather
                   </button>
-                  <h5 id="showWeatherForecast" className="card-title">
-                    ({this.state.city} + {this.state.temp})
-                  </h5>
-
-                  <h6 id="time" className="card-title"></h6>
+                  <div className="row justify-content-center text-dark">
+                    <div className="col">
+                      <h5 id="showWeatherForecast" className="card-title ">
+                        {this.state.city}
+                      </h5>
+                    </div>
+                    <div className="col text-right">
+                      <h6 id="time" className="card-title">
+                        {this.state.time}
+                      </h6>
+                    </div>
+                  </div>
+                  <div className="row justify-content-center">
+                    <div className="col">
+                      <p className="card-title text-info">{this.state.temp}</p>
+                    </div>
+                    <div className="col text-right">
+                      <p id="time" className="card-title text-primary">
+                        {this.state.feelsLike}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="row justify-content-center">
+                    <p className="text-right">{this.state.theweather}</p>
+                  </div>
                 </div>
               </div>
             </div>
